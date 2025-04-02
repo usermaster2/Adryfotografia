@@ -65,16 +65,16 @@ document.querySelectorAll('.whatsapp-btn').forEach(whatsappBtn => {
         const selectedPhotos = popup.querySelectorAll('.photo.selected');
         const photoUrls = Array.from(selectedPhotos).map(photo => photo.src); // Obtém as URLs das imagens selecionadas
 
-        // Cria a mensagem com as URLs das imagens, adicionando uma linha em branco entre cada URL
-        let message = "Aqui estão as fotos selecionadas:\n";
-        message += photoUrls.join('\n\n'); // Adiciona uma nova linha em branco entre cada URL de foto
+        // Criar um único link com todas as imagens (gerando uma lista simples)
+        const message = "Aqui estão as fotos selecionadas:\n" + photoUrls.join('\n');
 
-        // Cria o link do WhatsApp com a mensagem
+        // Criar o link do WhatsApp com a mensagem
         const whatsappLink = `https://api.whatsapp.com/send/?phone=5581984017916&type=phone_number&app_absent=0&text=${encodeURIComponent(message)}`;
 
         // Redireciona o usuário para o WhatsApp
         window.open(whatsappLink, '_blank');
     });
 });
+
 
 

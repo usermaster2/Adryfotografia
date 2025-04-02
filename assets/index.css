@@ -437,3 +437,83 @@ h4 {
         text-align: center;
     }
 }
+/* .photo - estilo para as imagens dentro do popup */
+.popup .photo {
+    width: 100%;
+    height: 10rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.popup .photo:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo para a foto selecionada */
+.popup .photo.selected {
+    border: 3px solid #00f; /* Borda azul para destacar a foto selecionada */
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Sombra azul para destacar a foto */
+}
+
+/* Outros ajustes para as imagens dentro da galeria */
+.image-gallery img {
+    width: 100%;
+    height: 10rem;
+    border-radius: 5px;
+    transition: transform 0.4s;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+}
+/* Estilo para indicar a seleção de uma foto */
+.photo.selected {
+    border: 3px solid #a15d1b; /* Cor para borda quando a foto está selecionada */
+    transform: scale(1.05); /* Aumento no tamanho da imagem */
+    transition: transform 0.2s ease, border 0.2s ease; /* Suaviza a transformação */
+}
+
+/* Caso você queira adicionar um fundo para o popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Para garantir que a galeria de imagens tenha um layout responsivo */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+}
+.whatsapp-btn-container {
+    position: fixed;
+    bottom: 20px; /* Distância do fundo da tela */
+    right: 20px;  /* Distância da borda direita */
+    z-index: 999; /* Garante que o botão fique sobre os outros elementos */
+}
+
+.whatsapp-btn {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-btn:disabled {
+    background-color: #ddd; /* Cor do botão desabilitado */
+    cursor: not-allowed;
+}
+

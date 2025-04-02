@@ -66,7 +66,8 @@ document.querySelectorAll('.whatsapp-btn').forEach(whatsappBtn => {
         const photoUrls = Array.from(selectedPhotos).map(photo => photo.src); // Obtém as URLs das imagens selecionadas
         
         // Criar uma mensagem com as URLs de cada foto separadas por uma linha em branco
-        const message = "Aqui estão as fotos selecionadas:\n" + photoUrls.join('📸');
+        const message = "Aqui estão as fotos selecionadas:\n" + photoUrls.join(' - '); // Usando hífen para separar as URLs
+
 
         // Criar o link do WhatsApp com a mensagem
         const whatsappLink = `https://api.whatsapp.com/send/?phone=5581984017916&type=phone_number&app_absent=0&text=${encodeURIComponent(message)}`;

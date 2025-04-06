@@ -71,6 +71,8 @@ h3 {
     font-weight: bold;
     transition: .4s;
     box-shadow: #252525 0px 1px 1px 0px;
+    text-decoration: none; 
+    outline: none;          
 }
 
 .link:hover {

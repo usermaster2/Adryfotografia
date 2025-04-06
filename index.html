@@ -10,13 +10,33 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="assets/index.css">
+
+    <style>
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
     <title>ADRYFOTOGRAFIAS</title>
 </head>
 
 <body>
     <main class="container">
-        <h1>adry</h1>
-        <h1>fotografias</h1>
+        <h1 class="fade-in">adry</h1>
+        <h1 class="fade-in" style="animation-delay: 0.4s;">fotografias</h1>
+        <h4 class="slogan fade-in" style="animation-delay: 0.8s;">Momentos que viram eternidade</h4>
         <br>
         <img src="assets/camera.svg" alt="imagem icone de camera" class="iconCamera">
         <br>

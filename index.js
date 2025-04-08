@@ -30,51 +30,69 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Selecionar ou desmarcar múltiplas fotos dentro de um popup específico (popup3, popup6, etc.)
-document.querySelectorAll('.popup .photo').forEach(photo => {
-    photo.addEventListener('click', () => {
-        // Alternar a classe 'selected' quando a imagem for clicada
-        photo.classList.toggle('selected');
-
-        // Verificar se há fotos selecionadas e habilitar o botão
-        enableWhatsappButton(photo);
-    });
-});
-
-// Função para verificar se há fotos selecionadas e habilitar o botão do WhatsApp
+// Esta função atualiza o botão e o contador de fotos selecionadas
 function enableWhatsappButton(photo) {
-    // Encontrar o popup que contém a foto clicada
-    const popup = photo.closest('.popup');
-    
-    // Verificar todas as fotos selecionadas dentro do popup específico
-    const selectedPhotos = popup.querySelectorAll('.photo.selected');
-    const whatsappBtn = popup.querySelector('.whatsapp-btn');
+    const popup = photo.closest('.popup'); // Encontra o popup onde a foto foi clicada
 
-    // Se houver fotos selecionadas, habilita o botão, caso contrário, desabilita
-    if (selectedPhotos.length > 0) {
-        whatsappBtn.disabled = false;
-    } else {
-        whatsappBtn.disabled = true;
+    // Busca todas as imagens com a classe 'selected' (selecionadas)
+    const selectedPhotos = popup.querySelectorAll('.photo.selected');
+
+    // Busca o botão de download e o contador dentro do popup
+    const whatsappBtn = popup.querySelector('.whatsapp-btn');
+    const contador = popup.querySelector('.contador-fotos');
+
+    const total = selectedPhotos.length; // Quantidade de imagens selecionadas
+
+    // Atualiza o texto do botão com a quantidade
+    if (whatsappBtn) {
+        whatsappBtn.textContent = `Baixar selecionadas (${total})`;
+        whatsappBtn.disabled = total === 0; // Habilita ou desabilita o botão
+    }
+
+    // Atualiza o contador com o texto correto (singular/plural)
+    if (contador) {
+        contador.textContent = `${total} foto${total === 1 ? '' : 's'} selecionada${total === 1 ? '' : 's'}`;
     }
 }
 
-/// Enviar todas as fotos selecionadas para o WhatsApp em um único link
-document.querySelectorAll('.whatsapp-btn').forEach(whatsappBtn => {
-    whatsappBtn.addEventListener('click', (event) => {
-        const popup = event.target.closest('.popup');
-        const selectedPhotos = popup.querySelectorAll('.photo.selected');
-        const photoUrls = Array.from(selectedPhotos).map(photo => photo.src); // Obtém as URLs das imagens selecionadas
-        
-        // Criar uma mensagem com as URLs de cada foto separadas por uma linha em branco
-        const message = "Aqui estão as fotos selecionadas:\n" + photoUrls.join('\n\n'); // Dupla quebra de linha entre cada URL
+// Quando o DOM estiver totalmente carregado
+document.addEventListener('DOMContentLoaded', () => {
+    // Adiciona evento de clique em todas as imagens
+    document.querySelectorAll('.popup .photo').forEach(photo => {
+        photo.addEventListener('click', () => {
+            photo.classList.toggle('selected'); // Alterna a seleção (adiciona ou remove a classe)
+            enableWhatsappButton(photo); // Atualiza o botão e contador
+        });
+    });
 
-        // Criar o link do WhatsApp com a mensagem
-        const whatsappLink = `https://api.whatsapp.com/send/?phone=5581984017916&type=phone_number&app_absent=0&text=${encodeURIComponent(message)}`;
+    // Adiciona evento ao botão de baixar imagens
+    document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+        btn.textContent = 'Baixar selecionadas (0)'; // Texto inicial
+        btn.disabled = true; // Começa desabilitado
 
-        // Redireciona o usuário para o WhatsApp com o link gerado
-        window.open(whatsappLink, '_blank');
+        btn.addEventListener('click', (event) => {
+            const popup = event.target.closest('.popup'); // Encontra o popup correto
+            const selectedPhotos = popup.querySelectorAll('.photo.selected'); // Pega as fotos selecionadas
+
+            if (selectedPhotos.length === 0) {
+                alert("Nenhuma foto selecionada.");
+                return;
+            }
+
+            // Para cada imagem selecionada, cria um link e aciona o download
+            selectedPhotos.forEach(photo => {
+                const link = document.createElement('a');
+                link.href = photo.src; // Caminho da imagem
+                link.download = decodeURIComponent(photo.src.split('/').pop()); // Nome do arquivo
+                document.body.appendChild(link);
+                link.click(); // Inicia o download
+                document.body.removeChild(link); // Limpa o link depois
+            });
+        });
     });
 });
+
+
 
 
 

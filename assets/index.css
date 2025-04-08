@@ -330,7 +330,12 @@ h4 {
         text-align: center;
     }
 }
-
+.contador-fotos {
+    font-size: 14px;
+    margin: 10px 0;
+    color: #333;
+  }
+  
 /* WHATSAPP */
 .whatsapp-btn-container {
     position: fixed;
